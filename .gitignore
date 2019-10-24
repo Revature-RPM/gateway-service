@@ -99,7 +99,7 @@ hibernate.cfg.xml
 target/
 
 # config files (bootstrap.yml will stay on repo, but no need to update it)
-#bootstrap.yml
+bootstrap.yml
 application.yml
 
 # .attach files
