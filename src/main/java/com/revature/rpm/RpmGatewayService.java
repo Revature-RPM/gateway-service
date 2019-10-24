@@ -21,9 +21,16 @@ public class RpmGatewayService {
 				.route(r -> r.path("/login")
 						     .uri("lb://AUTH-SERVICE")
 						     .id("login"))
+				
 				.route(r -> r.path("/users/**")
+							 .filters(f -> f.addRequestHeader("X-RPM-Gateway", "test-value"))
 							 .uri("lb://AUTH-SERVICE")
 							 .id("users"))
+				
+				.route(r -> r.path("/projects/**")
+							 .uri("lb://PROJECT-SERVICE")
+							 .id("projects"))
+				
 				.build();
 	}
 	

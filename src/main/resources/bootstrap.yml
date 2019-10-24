@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: gateway-service
+  
+---
+
+spring:
+  profiles: deploy
+  cloud:
+    config:
+      uri: ${CONFIG_SERVICE_URL}
+
+---
+
+spring:
+  profiles: local
+  cloud:
+    config:
+      uri: http://config-service.vmmxembj3j.us-east-2.elasticbeanstalk.com/
