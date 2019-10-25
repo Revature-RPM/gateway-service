@@ -2,6 +2,7 @@ package com.revature.rpm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -18,13 +19,13 @@ public class RpmGatewayService {
 	@Bean
 	public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
+				
 				.route(r -> r.path("/login")
 						     .uri("lb://AUTH-SERVICE")
 						     .id("login"))
 				
 				.route(r -> r.path("/users/**")
-							 .filters(f -> f.addRequestHeader("X-RPM-Gateway", "test-value")
-									 		.hystrix(c -> c.setName("hystrix-fallback")
+							 .filters(f -> f.hystrix(c -> c.setName("hystrix-fallback")
 									 					   .setFallbackUri("forward:/fallback")))
 							 .uri("lb://AUTH-SERVICE")
 							 .id("users"))
@@ -34,6 +35,14 @@ public class RpmGatewayService {
 							 .id("projects"))
 				
 				.build();
+	}
+	
+	@Bean
+	public GlobalFilter addGatewayHeaderFilter() {
+		return (exchange, chain) -> {
+			exchange.getRequest().mutate().headers(c -> c.add("X-RPM-Gateway", "test-value"));
+			return chain.filter(exchange);
+		};
 	}
 	
 }
