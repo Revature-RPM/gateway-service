@@ -23,7 +23,9 @@ public class RpmGatewayService {
 						     .id("login"))
 				
 				.route(r -> r.path("/users/**")
-							 .filters(f -> f.addRequestHeader("X-RPM-Gateway", "test-value"))
+							 .filters(f -> f.addRequestHeader("X-RPM-Gateway", "test-value")
+									 		.hystrix(c -> c.setName("hystrix-fallback")
+									 					   .setFallbackUri("forward:/fallback")))
 							 .uri("lb://AUTH-SERVICE")
 							 .id("users"))
 				
