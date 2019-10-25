@@ -1,6 +1,6 @@
 package com.revature.rpm.hystrix;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,7 @@ public class FallbackController {
 	@RequestMapping("/fallback")
 	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
 	public Mono<ErrorResponse> fallback() {
-		ErrorResponse err = new ErrorResponse(503, LocalDate.now());
+		ErrorResponse err = new ErrorResponse(503, LocalDateTime.now());
 		err.setMessage("Unable to contact service, please try again later.");
 		return Mono.just(err);
 	}

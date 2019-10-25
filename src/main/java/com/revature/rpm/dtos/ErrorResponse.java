@@ -1,6 +1,6 @@
 package com.revature.rpm.dtos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -23,19 +23,19 @@ public class ErrorResponse {
 	/**
 	 * The time at which the error occurred.
 	 */
-	private LocalDate timestamp;
+	private LocalDateTime timestamp;
 	
 	public ErrorResponse() {
 		super();
 	}
 	
-	public ErrorResponse(int status, LocalDate timestamp) {
+	public ErrorResponse(int status, LocalDateTime timestamp) {
 		super();
 		this.status = status;
 		this.timestamp = timestamp;
 	}
 	
-	public ErrorResponse(int status, String message, LocalDate timestamp) {
+	public ErrorResponse(int status, String message, LocalDateTime timestamp) {
 		super();
 		this.status = status;
 		this.message = message;
@@ -58,11 +58,11 @@ public class ErrorResponse {
 		this.message = message;
 	}
 
-	public LocalDate getTimestamp() {
+	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(LocalDate timestamp) {
+	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 
