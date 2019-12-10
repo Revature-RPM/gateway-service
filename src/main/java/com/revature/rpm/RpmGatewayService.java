@@ -24,6 +24,9 @@ public class RpmGatewayService {
 				.route(r -> r.path("/users/**")
 							 .uri("lb://AUTH-SERVICE")
 							 .id("users"))
+				.route(r -> r.path("/notfications/**")
+							 .uri("lb://AUTH-SERVICE")
+							 .id("notifications"))
 				.build();
 	}
 	
